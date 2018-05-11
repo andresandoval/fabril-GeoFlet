@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema id="ApiDataset" targetNamespace="http://tempuri.org/ApiDataset.xsd" xmlns:mstns="http://tempuri.org/ApiDataset.xsd" xmlns="http://tempuri.org/ApiDataset.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+<xs:schema id="GeoDataSet" targetNamespace="http://tempuri.org/GeoDataSet.xsd" xmlns:mstns="http://tempuri.org/GeoDataSet.xsd" xmlns="http://tempuri.org/GeoDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:annotation>
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
-      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="1" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
-          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="geoFleetConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="geoFleetConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.GeoFleetService.Properties.Settings.GlobalReference.Default.GeoFleet_PRBConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="geoFleetConnectionString" IsAppSettingsProperty="true" Modifier="Assembly" Name="geoFleetConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.GeoFleetBL.Properties.Settings.GlobalReference.Default.GeoFleet_PRBConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="GeoFleet_PRBConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="GeoFleet_PRBConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.GeoFleetBL.Properties.Settings.GlobalReference.Default.GeoFleet_PRBConnectionString" Provider="System.Data.SqlClient" />
         </Connections>
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="devicesTableAdapter" GeneratorDataComponentClassName="devicesTableAdapter" Name="devices" UserDataComponentName="devicesTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="geoFleetConnectionString (Settings)" DbObjectName="geoFleet.dbo.devices" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="GeoFleet_PRBConnectionString (Settings)" DbObjectName="GeoFleet_PRB.dbo.devices" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>DELETE FROM [dbo].[devices] WHERE (([imei] = @Original_imei) AND ((@IsNull_alias = 1 AND [alias] IS NULL) OR ([alias] = @Original_alias)) AND ((@IsNull_placa = 1 AND [placa] IS NULL) OR ([placa] = @Original_placa)) AND ((@IsNull_ramv_cpn = 1 AND [ramv_cpn] IS NULL) OR ([ramv_cpn] = @Original_ramv_cpn)) AND ((@IsNull_chasis = 1 AND [chasis] IS NULL) OR ([chasis] = @Original_chasis)) AND ((@IsNull_motor = 1 AND [motor] IS NULL) OR ([motor] = @Original_motor)) AND ((@IsNull_tipo_combustible = 1 AND [tipo_combustible] IS NULL) OR ([tipo_combustible] = @Original_tipo_combustible)) AND ((@IsNull_anio = 1 AND [anio] IS NULL) OR ([anio] = @Original_anio)) AND ((@IsNull_marca = 1 AND [marca] IS NULL) OR ([marca] = @Original_marca)) AND ((@IsNull_modelo = 1 AND [modelo] IS NULL) OR ([modelo] = @Original_modelo)) AND ((@IsNull_color1 = 1 AND [color1] IS NULL) OR ([color1] = @Original_color1)) AND ((@IsNull_color2 = 1 AND [color2] IS NULL) OR ([color2] = @Original_color2)) AND ((@IsNull_tipo_conductor = 1 AND [tipo_conductor] IS NULL) OR ([tipo_conductor] = @Original_tipo_conductor)) AND ((@IsNull_propietario = 1 AND [propietario] IS NULL) OR ([propietario] = @Original_propietario)) AND ((@IsNull_empresa = 1 AND [empresa] IS NULL) OR ([empresa] = @Original_empresa)) AND ((@IsNull_tipo_cobertura = 1 AND [tipo_cobertura] IS NULL) OR ([tipo_cobertura] = @Original_tipo_cobertura)) AND ((@IsNull_tipo_carroceria_1 = 1 AND [tipo_carroceria_1] IS NULL) OR ([tipo_carroceria_1] = @Original_tipo_carroceria_1)) AND ((@IsNull_tipo_carroceria_2 = 1 AND [tipo_carroceria_2] IS NULL) OR ([tipo_carroceria_2] = @Original_tipo_carroceria_2)) AND ((@IsNull_Transporte = 1 AND [Transporte] IS NULL) OR ([Transporte] = @Original_Transporte)) AND ((@IsNull_Unidades = 1 AND [Unidades] IS NULL) OR ([Unidades] = @Original_Unidades)) AND ((@IsNull_Capacidad = 1 AND [Capacidad] IS NULL) OR ([Capacidad] = @Original_Capacidad)) AND ((@IsNull_Cilindraje = 1 AND [Cilindraje] IS NULL) OR ([Cilindraje] = @Original_Cilindraje)) AND ((@IsNull_unidad_consumo_combustible = 1 AND [unidad_consumo_combustible] IS NULL) OR ([unidad_consumo_combustible] = @Original_unidad_consumo_combustible)) AND ((@IsNull_ultima_actualizacion = 1 AND [ultima_actualizacion] IS NULL) OR ([ultima_actualizacion] = @Original_ultima_actualizacion)))</CommandText>
@@ -210,12 +211,12 @@ SELECT imei, alias, placa, ramv_cpn, chasis, motor, tipo_combustible, anio, marc
               <Mapping SourceColumn="ultima_actualizacion" DataSetColumn="ultima_actualizacion" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="geoFleetConnectionString (Settings)" DbObjectName="geoFleet.dbo.devices" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="GetDeviceById" GetMethodModifier="Public" GetMethodName="GetDeviceById" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDeviceById" UserSourceName="GetDeviceById">
+              <DbSource ConnectionRef="GeoFleet_PRBConnectionString (Settings)" DbObjectName="GeoFleet_PRB.dbo.devices" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="GetDeviceById" GetMethodModifier="Public" GetMethodName="GetDeviceById" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDeviceById" UserSourceName="GetDeviceById">
                 <SelectCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>SELECT Capacidad, Cilindraje, Transporte, Unidades, alias, anio, chasis, color1, color2, empresa, imei, marca, modelo, motor, placa, propietario, ramv_cpn, tipo_carroceria_1, tipo_carroceria_2, tipo_cobertura, tipo_combustible, tipo_conductor, ultima_actualizacion, unidad_consumo_combustible FROM devices WHERE (imei = @imei)</CommandText>
                     <Parameters>
-                      <Parameter AllowDbNull="false" AutogeneratedName="imei" ColumnName="imei" DataSourceName="geoFleet.dbo.devices" DataTypeServer="char(15)" DbType="AnsiString" Direction="Input" ParameterName="@imei" Precision="0" ProviderType="Char" Scale="0" Size="15" SourceColumn="imei" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="imei" ColumnName="imei" DataSourceName="" DataTypeServer="char(15)" DbType="AnsiString" Direction="Input" ParameterName="@imei" Precision="0" ProviderType="Char" Scale="0" Size="15" SourceColumn="imei" SourceColumnNullMapping="false" SourceVersion="Current" />
                     </Parameters>
                   </DbCommand>
                 </SelectCommand>
@@ -224,7 +225,7 @@ SELECT imei, alias, placa, ramv_cpn, chasis, motor, tipo_combustible, anio, marc
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="dailyHistoryTableAdapter" GeneratorDataComponentClassName="dailyHistoryTableAdapter" Name="dailyHistory" UserDataComponentName="dailyHistoryTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="geoFleetConnectionString (Settings)" DbObjectName="geoFleet.dbo.dailyHistory" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="GeoFleet_PRBConnectionString (Settings)" DbObjectName="GeoFleet_PRB.dbo.dailyHistory" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <DeleteCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>DELETE FROM [dbo].[dailyHistory] WHERE (([dailyHistoryId] = @Original_dailyHistoryId))</CommandText>
@@ -259,7 +260,7 @@ SELECT dailyHistoryId, imei, date, time, uniqueId, latitude, longitude, address,
                   </DbCommand>
                 </InsertCommand>
                 <SelectCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>SELECT [dailyHistoryId]
       ,[imei]
       ,[date]
@@ -305,7 +306,7 @@ SELECT dailyHistoryId, imei, date, time, uniqueId, latitude, longitude, address,
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@alert_message" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="alert_message" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="true" AutogeneratedName="" DataSourceName="" DbType="AnsiString" Direction="Input" ParameterName="@zone" Precision="0" ProviderType="VarChar" Scale="0" Size="0" SourceColumn="zone" SourceColumnNullMapping="false" SourceVersion="Current" />
                       <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_dailyHistoryId" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="dailyHistoryId" SourceColumnNullMapping="false" SourceVersion="Original" />
-                      <Parameter AllowDbNull="false" AutogeneratedName="dailyHistoryId" ColumnName="dailyHistoryId" DataSourceName="geoFleet.dbo.dailyHistory" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@dailyHistoryId" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="dailyHistoryId" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="dailyHistoryId" ColumnName="dailyHistoryId" DataSourceName="" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@dailyHistoryId" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="dailyHistoryId" SourceColumnNullMapping="false" SourceVersion="Current" />
                     </Parameters>
                   </DbCommand>
                 </UpdateCommand>
@@ -333,41 +334,22 @@ SELECT dailyHistoryId, imei, date, time, uniqueId, latitude, longitude, address,
               <Mapping SourceColumn="zone" DataSetColumn="zone" />
             </Mappings>
             <Sources>
-              <DbSource ConnectionRef="geoFleetConnectionString (Settings)" DbObjectName="geoFleet.dbo.dailyHistory" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="GetHistoryById" GetMethodModifier="Public" GetMethodName="GetHistoryById" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetHistoryById" UserSourceName="GetHistoryById">
+              <DbSource ConnectionRef="GeoFleet_PRBConnectionString (Settings)" DbObjectName="GeoFleet_PRB.dbo.dailyHistory" DbObjectType="Table" GenerateMethods="Get" GenerateShortCommands="true" GeneratorGetMethodName="GetHistoryById" GetMethodModifier="Public" GetMethodName="GetHistoryById" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetHistoryById" UserSourceName="GetHistoryById">
                 <SelectCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="true">
-                    <CommandText>SELECT [dailyHistoryId]
-      ,[imei]
-      ,[date]
-      ,[time]
-      ,[uniqueId]
-      ,[latitude]
-      ,[longitude]
-      ,[address]
-      ,[speed]
-      ,[mileage]
-      ,[temperature_1]
-      ,[temperature_2]
-      ,[temperature_3]
-      ,[temperature_4]
-      ,[internal_battery_level]
-      ,[is_exception]
-      ,[alert_message]
-      ,[zone]
-  FROM [dbo].[dailyHistory]
-WHERE [uniqueId]=@uniqueId</CommandText>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT address, alert_message, dailyHistoryId, date, imei, internal_battery_level, is_exception, latitude, longitude, mileage, speed, temperature_1, temperature_2, temperature_3, temperature_4, time, uniqueId, zone FROM dailyHistory WHERE (uniqueId = @uniqueId)</CommandText>
                     <Parameters>
-                      <Parameter AllowDbNull="false" AutogeneratedName="uniqueId" ColumnName="uniqueId" DataSourceName="geoFleet.dbo.dailyHistory" DataTypeServer="char(29)" DbType="AnsiString" Direction="Input" ParameterName="@uniqueId" Precision="0" ProviderType="Char" Scale="0" Size="29" SourceColumn="uniqueId" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="uniqueId" ColumnName="uniqueId" DataSourceName="" DataTypeServer="char(29)" DbType="AnsiString" Direction="Input" ParameterName="@uniqueId" Precision="0" ProviderType="Char" Scale="0" Size="29" SourceColumn="uniqueId" SourceColumnNullMapping="false" SourceVersion="Current" />
                     </Parameters>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="geoFleetConnectionString (Settings)" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="GetMaxSyncDateByImei" Modifier="Public" Name="GetMaxSyncDateByImei" QueryType="Scalar" ScalarCallRetval="System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="GetMaxSyncDateByImei">
+              <DbSource ConnectionRef="GeoFleet_PRBConnectionString (Settings)" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="GetMaxSyncDateByImei" Modifier="Public" Name="GetMaxSyncDateByImei" QueryType="Scalar" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="GetMaxSyncDateByImei">
                 <SelectCommand>
-                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
                     <CommandText>SELECT max([date]) FROM [dailyHistory] where [imei] = @imei</CommandText>
                     <Parameters>
-                      <Parameter AllowDbNull="false" AutogeneratedName="imei" ColumnName="imei" DataSourceName="GeoFleet_PRB.dbo.dailyHistory" DataTypeServer="char(15)" DbType="AnsiString" Direction="Input" ParameterName="@imei" Precision="0" ProviderType="Char" Scale="0" Size="15" SourceColumn="imei" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="imei" ColumnName="imei" DataSourceName="" DataTypeServer="char(15)" DbType="AnsiString" Direction="Input" ParameterName="@imei" Precision="0" ProviderType="Char" Scale="0" Size="15" SourceColumn="imei" SourceColumnNullMapping="false" SourceVersion="Current" />
                     </Parameters>
                   </DbCommand>
                 </SelectCommand>
@@ -379,7 +361,7 @@ WHERE [uniqueId]=@uniqueId</CommandText>
       </DataSource>
     </xs:appinfo>
   </xs:annotation>
-  <xs:element name="ApiDataset" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="ApiDataset" msprop:Generator_UserDSName="ApiDataset">
+  <xs:element name="GeoDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="GeoDataSet" msprop:Generator_UserDSName="GeoDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:element name="devices" msprop:Generator_TableClassName="devicesDataTable" msprop:Generator_TableVarName="tabledevices" msprop:Generator_RowChangedName="devicesRowChanged" msprop:Generator_TablePropName="devices" msprop:Generator_RowDeletingName="devicesRowDeleting" msprop:Generator_RowChangingName="devicesRowChanging" msprop:Generator_RowEvHandlerName="devicesRowChangeEventHandler" msprop:Generator_RowDeletedName="devicesRowDeleted" msprop:Generator_RowClassName="devicesRow" msprop:Generator_UserTableName="devices" msprop:Generator_RowEvArgName="devicesRowChangeEvent">
@@ -599,7 +581,7 @@ WHERE [uniqueId]=@uniqueId</CommandText>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="fk_dailyHistory_rf_devices" msdata:parent="devices" msdata:child="dailyHistory" msdata:parentkey="imei" msdata:childkey="imei" msprop:Generator_UserChildTable="dailyHistory" msprop:Generator_ChildPropName="GetdailyHistoryRows" msprop:Generator_UserRelationName="fk_dailyHistory_rf_devices" msprop:Generator_RelationVarName="relationfk_dailyHistory_rf_devices" msprop:Generator_UserParentTable="devices" msprop:Generator_ParentPropName="devicesRow" />
+      <msdata:Relationship name="fk_dailyHistory_rf_devices" msdata:parent="devices" msdata:child="dailyHistory" msdata:parentkey="imei" msdata:childkey="imei" msprop:Generator_UserChildTable="dailyHistory" msprop:Generator_ChildPropName="GetdailyHistoryRows" msprop:Generator_UserRelationName="fk_dailyHistory_rf_devices" msprop:Generator_ParentPropName="devicesRow" msprop:Generator_RelationVarName="relationfk_dailyHistory_rf_devices" msprop:Generator_UserParentTable="devices" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

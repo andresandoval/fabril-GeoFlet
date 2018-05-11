@@ -11,20 +11,17 @@ using System.Windows.Forms;
 using System.IO;
 using System.Configuration;
 using GeoFleetConfig.Properties;
+using GeoFleetBL;
 
 namespace GeoFleetConfig {
     public partial class frmMain : Form {
 
         private Configuration serviceConfig;
-
+        private ServiceController mainService;
 
         public frmMain() {
             InitializeComponent();
         }
-
-        private System.Timers.Timer checkServiceStatus;
-        private ServiceController mainService;// = new ServiceController(SERVICENAME);
-
 
         private String getServiceStatus() {
             switch (this.mainService.Status) {
@@ -41,7 +38,7 @@ namespace GeoFleetConfig {
                 default:
                     return "Cambiando estado";
             }
-        }        
+        }
 
         private void findServiceConfigFIle() {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -49,7 +46,7 @@ namespace GeoFleetConfig {
             ofd.Title = "Cargar archivo de configuracion del servicio";
             ofd.CheckFileExists = true;
 
-            if (ofd.ShowDialog().Equals(DialogResult.OK)) {                
+            if (ofd.ShowDialog().Equals(DialogResult.OK)) {
                 try {
 
                     ExeConfigurationFileMap configFileMap = new ExeConfigurationFileMap();
@@ -88,14 +85,8 @@ namespace GeoFleetConfig {
                     if (String.IsNullOrEmpty(__logFileName) || String.IsNullOrWhiteSpace(__logFileName)) {
                         __logFileName = Path.Combine(Path.GetDirectoryName(serviceConfigFile), this.serviceConfig.AppSettings.Settings["serviceName"].Value + ".exe.log");
                     }
-                    if (File.Exists((__logFileName))) {
-                        this.linkLog.Tag = __logFileName;
-                        this.linkLog.Text = "Abrir archivo de log";
-                    } else {
-                        this.linkLog.Tag = null;
-                        this.linkLog.Text = "No hay un archivo de log";
-                    }
-
+                    this.linkLogSrv.Tag = __logFileName;
+                    
                     int __maxDays = int.Parse(System.Configuration.ConfigurationManager.AppSettings["maxExecutionDays"]);
 
                     Object[] __days = new Object[__maxDays + 1];
@@ -162,24 +153,13 @@ namespace GeoFleetConfig {
                     this.txtVehicleImei.Text = this.serviceConfig.AppSettings.Settings["deviceImei"].Value;
                     this.dateHistoryStartSyncDate.Value = DateTime.Parse(this.serviceConfig.AppSettings.Settings["startDailyHistorySyncDate"].Value);
 
+                    this.mainService = new ServiceController(this.serviceConfig.AppSettings.Settings["serviceName"].Value);
+
                     this.Text += " : " + this.serviceConfig.AppSettings.Settings["serviceDisplayName"].Value;
                     this.trayNotifyIcon.BalloonTipTitle = this.Text;
-
-                    string __serviceDescription = this.serviceConfig.AppSettings.Settings["serviceDescription"].Value;
-
-                    if (this.checkServiceStatus == null) {
-                        this.checkServiceStatus = new System.Timers.Timer(1500D);
-                        this.checkServiceStatus.AutoReset = true;
-                        this.mainService = new ServiceController(this.serviceConfig.AppSettings.Settings["serviceName"].Value);
-                        this.checkServiceStatus.Elapsed += new System.Timers.ElapsedEventHandler((object sender, System.Timers.ElapsedEventArgs e) => {
-                            this.mainService.Refresh();
-                            this.lblServiceStatus.Text = "Estado del servicio: " + this.getServiceStatus();
-                            this.trayNotifyIcon.BalloonTipText = __serviceDescription + "\n\n" + this.lblServiceStatus.Text;
-                        });
-                        this.checkServiceStatus.Start();
-                    }
                     this.BringToFront();
                     this.Activate();
+                    this.timerServiceStatus.Enabled = true;
 
                 } else {
                     if (MessageBox.Show("No se puede acceder a la configuracion del servicio, ¿Desea buscar el archivo de configuracion?", "Error: archivo de configuracion", MessageBoxButtons.YesNo) == DialogResult.Yes) {
@@ -205,10 +185,6 @@ namespace GeoFleetConfig {
                         MessageBox.Show("El campo 'Token' es obligatorio..");
                         return;
                     }
-                    if (this.txtVehicleImei.TextLength <= 0) {
-                        MessageBox.Show("El campo 'IMEI' es obligatorio..");
-                        return;
-                    }
 
                     if (MessageBox.Show("¿Esta seguro que desea actualizar la configuracion del servicio de sincronizacion?, si elige continuar, se guardaran los cambios realizados y se procedera a reiniciar el servicio para su efecto inmediato, ", "Confirmar actualizacion", MessageBoxButtons.YesNo) != DialogResult.Yes) {
                         return;
@@ -216,7 +192,7 @@ namespace GeoFleetConfig {
 
                     this.serviceConfig.AppSettings.Settings["apiToken"].Value = this.txtToken.Text;
                     this.serviceConfig.AppSettings.Settings["enterpriceName"].Value = this.txtEnterpriceName.Text;
-                    this.serviceConfig.AppSettings.Settings["logFileName"].Value = this.linkLog.Tag.ToString();
+                    this.serviceConfig.AppSettings.Settings["logFileName"].Value = this.linkLogSrv.Tag.ToString();
 
                     double __vehicleTimer = (Double.Parse(this.cbxVehicleDay.Text) * 1000 * 60 * 60 * 24) + (Double.Parse(this.cbxVehicleHour.Text) * 1000 * 60 * 60) + (Double.Parse(this.cbxVehicleMin.Text) * 1000 * 60);
                     double __historyTimer = (Double.Parse(this.cbxHistoryDay.Text) * 1000 * 60 * 60 * 24) + (Double.Parse(this.cbxHistoryHour.Text) * 1000 * 60 * 60) + (Double.Parse(this.cbxHistoryMin.Text) * 1000 * 60);
@@ -242,14 +218,57 @@ namespace GeoFleetConfig {
 
         }
 
+        private Todo getTodo() {
+            Todo __todo = null;
+
+            String __conn;
+            String __token;
+            String __emp;
+            String __imei;
+            Double __devicesTimer;
+            Double __dailyHistoryTimer;
+            String __startDailyHistorySyncDate;
+            String __serviceName;
+
+            try {
+                string serviceConfigFile = System.Configuration.ConfigurationManager.AppSettings["serviceConfigurationFile"];
+
+                if (File.Exists(serviceConfigFile)) {
+                    ExeConfigurationFileMap serviceExeConfig = new ExeConfigurationFileMap();
+                    serviceExeConfig.ExeConfigFilename = serviceConfigFile;
+                    this.serviceConfig = ConfigurationManager.OpenMappedExeConfiguration(serviceExeConfig, ConfigurationUserLevel.None);
+
+                    __conn = this.serviceConfig.ConnectionStrings.ConnectionStrings["GeoFleetService.Properties.Settings.geoFleetConnectionString"].ConnectionString;
+                    __token = this.serviceConfig.AppSettings.Settings["apiToken"].Value;
+                    __emp = this.serviceConfig.AppSettings.Settings["enterpriceName"].Value;
+                    __imei = this.serviceConfig.AppSettings.Settings["deviceImei"].Value;
+                    __serviceName = this.serviceConfig.AppSettings.Settings["serviceName"].Value;
+
+                    __devicesTimer = Double.Parse(this.serviceConfig.AppSettings.Settings["devicesTimer"].Value);
+                    __dailyHistoryTimer = Double.Parse(this.serviceConfig.AppSettings.Settings["dailyHistoryTimer"].Value);
+                    __startDailyHistorySyncDate = this.serviceConfig.AppSettings.Settings["startDailyHistorySyncDate"].Value;
+
+                    __todo = new Todo(__conn, __token, __emp, __imei, __devicesTimer, __dailyHistoryTimer, __startDailyHistorySyncDate, __serviceName);
+
+                } else {
+                    MessageBox.Show("No existe un archivo de configuracion", "Error: descargando configuracion");
+                }
+            } catch (Exception ex) {
+                MessageBox.Show(ex.ToString(), "Error: descargando configuracion");
+            }
+            return __todo;
+        }
 
         private void frmMain_Load(object sender, EventArgs e) {
+            this.timerServiceStatus.Enabled = false;
             this.DownloadConfiguration();
         }
 
-                private void linkLog_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-            if (this.linkLog.Tag != null) {
-                System.Diagnostics.Process.Start(this.linkLog.Tag.ToString());
+        private void linkLog_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            if (this.linkLogSrv.Tag != null && File.Exists(this.linkLogSrv.Tag.ToString())) {
+                System.Diagnostics.Process.Start(this.linkLogSrv.Tag.ToString());
+            } else {
+                MessageBox.Show("No existe un archivo de log para mostrar, este se genera luego de haber iniciado el servicio", "Abrir archivo de log");
             }
         }
 
@@ -293,7 +312,7 @@ namespace GeoFleetConfig {
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e) {
             e.Cancel = true;
-                this.WindowState = FormWindowState.Minimized;
+            this.WindowState = FormWindowState.Minimized;
         }
 
         private void trayNotifyIcon_DoubleClick(object sender, EventArgs e) {
@@ -309,6 +328,60 @@ namespace GeoFleetConfig {
         private void trayNotifyIcon_MouseMove(object sender, MouseEventArgs e) {
             this.mainService.Refresh();
             this.trayNotifyIcon.Text = this.serviceConfig.AppSettings.Settings["serviceDisplayName"].Value + ": " + this.getServiceStatus();
+        }
+
+        private void btnSyncVehicles_Click(object sender, EventArgs e) {
+            if (MessageBox.Show("¿Esta seguro?\n Se realizara la sincronizacion con la ultima configuracion valida", "Sincronizar vehiculos", MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                Todo __todo = this.getTodo();
+                if (__todo == null) {
+                    return;
+                }
+                Cursor.Current = Cursors.WaitCursor;
+                try {
+                    __todo.SyncDevices();
+                    MessageBox.Show("Sincronizacion completa", ":)");
+                } catch (Exception ex) {
+                    MessageBox.Show(ex.ToString(), "Error: sincronizando vehiculos");
+                } finally {
+                    __todo.end();
+                    __todo = null;
+                    Cursor.Current = Cursors.Default;
+                }
+            }
+        }
+
+        private void btnSyncHistory_Click(object sender, EventArgs e) {
+            if (MessageBox.Show("¿Esta seguro?\n Se realizara la sincronizacion con la ultima configuracion valida", "Sincronizar historial", MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                Todo __todo = this.getTodo();
+                if (__todo == null) {
+                    return;
+                }
+                Cursor.Current = Cursors.WaitCursor;
+                try {
+                    __todo.SyncDailyHistory();
+                    MessageBox.Show("Sincronizacion completa", ":)");
+                } catch (Exception ex) {
+                    MessageBox.Show(ex.ToString(), "Error: sincronizando historial");
+                } finally {
+                    __todo.end();
+                    __todo = null;
+                    Cursor.Current = Cursors.Default;
+                }
+            }
+        }
+
+        private void timerServiceStatus_Tick(object sender, EventArgs e) {
+            this.mainService.Refresh();
+            this.lblServiceStatus.Text = "Estado del servicio: " + this.getServiceStatus();
+        }
+
+        private void linkLogMan_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            String logFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, this.serviceConfig.AppSettings.Settings["serviceName"].Value + ".exe.log");
+            if (File.Exists(logFile)) {
+                System.Diagnostics.Process.Start(logFile);
+            } else {
+                MessageBox.Show("No existe un archivo de log para mostrar, este se genera luego de realizar una sincronizacion manual", "Abrir archivo de log");
+            }
         }
 
     }

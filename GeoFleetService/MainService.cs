@@ -7,42 +7,44 @@ using System.Linq;
 using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
+using GeoFleetBL;
+using System.Timers;
 
 namespace GeoFleetService {
+
     public partial class MainService : ServiceBase {
+
         private System.Timers.Timer timerDevices;
         private System.Timers.Timer timerDailyHistory;
-        private All all;
+        private Todo todo;
 
         public MainService() {
             InitializeComponent();
-            this.all = new All();
+            todo = new Todo();
         }
 
-
-        private void runDailyHistorySync(object sender, System.Timers.ElapsedEventArgs e) {
-
+        private void OnDevicesTimer(object source, ElapsedEventArgs e) {
+            this.todo.SyncDevices();
         }
+        private void OnDailyHistoryTimer(object source, ElapsedEventArgs e) {
+            this.todo.SyncDevices();
+        }
+
 
         protected override void OnStart(string[] args) {
-            if (this.all.getDevicesTimer() > 0) {
-                this.timerDevices = new System.Timers.Timer(this.all.getDevicesTimer());
+            if (this.todo.getDevicesTimer() > 0) {
+                this.timerDevices = new System.Timers.Timer(this.todo.getDevicesTimer());
                 this.timerDevices.AutoReset = true;
-                this.timerDevices.Elapsed += new System.Timers.ElapsedEventHandler((object sender, System.Timers.ElapsedEventArgs e) => {
-                    this.all.SyncDevices();
-                });
+                this.timerDevices.Elapsed += new ElapsedEventHandler(OnDevicesTimer);
                 this.timerDevices.Start();
             }
 
-            if (this.all.getDailyHistoryTimer() > 0) {
-                this.timerDailyHistory = new System.Timers.Timer(this.all.getDailyHistoryTimer());
+            if (this.todo.getDailyHistoryTimer() > 0) {
+                this.timerDailyHistory = new System.Timers.Timer(this.todo.getDailyHistoryTimer());
                 this.timerDailyHistory.AutoReset = true;
-                this.timerDailyHistory.Elapsed += new System.Timers.ElapsedEventHandler((object sender, System.Timers.ElapsedEventArgs e) => {
-                    this.all.SyncDailyHistory();
-                });
+                this.timerDailyHistory.Elapsed += new ElapsedEventHandler(OnDailyHistoryTimer);
                 this.timerDailyHistory.Start();
             }
-
         }
 
         protected override void OnStop() {
@@ -53,9 +55,9 @@ namespace GeoFleetService {
             if (this.timerDailyHistory != null) {
                 this.timerDailyHistory.Stop();
                 this.timerDailyHistory = null;
-            }            
-            this.all.end();
-            this.all = null;
+            }
+            this.todo.end();
+            this.todo = null;
         }
     }
 }

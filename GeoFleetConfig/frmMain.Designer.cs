@@ -27,13 +27,14 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.trayNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.linkLog = new System.Windows.Forms.LinkLabel();
+            this.linkLogSrv = new System.Windows.Forms.LinkLabel();
             this.label11 = new System.Windows.Forms.Label();
             this.txtEnterpriceName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtToken = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnSyncVehicles = new System.Windows.Forms.Button();
             this.txtVehicleImei = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.chkVehicleInactive = new System.Windows.Forms.CheckBox();
@@ -45,6 +46,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btnSyncHistory = new System.Windows.Forms.Button();
             this.dateHistoryStartSyncDate = new System.Windows.Forms.DateTimePicker();
             this.label7 = new System.Windows.Forms.Label();
             this.chkHistoryInactive = new System.Windows.Forms.CheckBox();
@@ -58,9 +60,11 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnClose = new System.Windows.Forms.Button();
             this.btnApply = new System.Windows.Forms.Button();
             this.lblServiceStatus = new System.Windows.Forms.Label();
-            this.btnClose = new System.Windows.Forms.Button();
+            this.timerServiceStatus = new System.Windows.Forms.Timer(this.components);
+            this.linkLogMan = new System.Windows.Forms.LinkLabel();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -79,7 +83,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.linkLog);
+            this.groupBox1.Controls.Add(this.linkLogMan);
+            this.groupBox1.Controls.Add(this.linkLogSrv);
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.txtEnterpriceName);
             this.groupBox1.Controls.Add(this.label3);
@@ -93,27 +98,27 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "General";
             // 
-            // linkLog
+            // linkLogSrv
             // 
-            this.linkLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.linkLogSrv.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkLog.AutoSize = true;
-            this.linkLog.Location = new System.Drawing.Point(82, 80);
-            this.linkLog.Name = "linkLog";
-            this.linkLog.Size = new System.Drawing.Size(54, 15);
-            this.linkLog.TabIndex = 3;
-            this.linkLog.TabStop = true;
-            this.linkLog.Text = "Ninguno";
-            this.linkLog.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLog_LinkClicked);
+            this.linkLogSrv.AutoSize = true;
+            this.linkLogSrv.Location = new System.Drawing.Point(82, 80);
+            this.linkLogSrv.Name = "linkLogSrv";
+            this.linkLogSrv.Size = new System.Drawing.Size(50, 15);
+            this.linkLogSrv.TabIndex = 3;
+            this.linkLogSrv.TabStop = true;
+            this.linkLogSrv.Text = "Servicio";
+            this.linkLogSrv.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLog_LinkClicked);
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(35, 80);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(34, 15);
+            this.label11.Size = new System.Drawing.Size(40, 15);
             this.label11.TabIndex = 4;
-            this.label11.Text = " Log:";
+            this.label11.Text = " Logs:";
             // 
             // txtEnterpriceName
             // 
@@ -153,6 +158,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnSyncVehicles);
             this.groupBox2.Controls.Add(this.txtVehicleImei);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.chkVehicleInactive);
@@ -165,14 +171,25 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Vehiculos";
             // 
+            // btnSyncVehicles
+            // 
+            this.btnSyncVehicles.Image = global::GeoFleetConfig.Properties.Resources.sync_24;
+            this.btnSyncVehicles.Location = new System.Drawing.Point(444, 93);
+            this.btnSyncVehicles.Name = "btnSyncVehicles";
+            this.btnSyncVehicles.Size = new System.Drawing.Size(30, 30);
+            this.btnSyncVehicles.TabIndex = 9;
+            this.btnSyncVehicles.TabStop = false;
+            this.btnSyncVehicles.UseVisualStyleBackColor = true;
+            this.btnSyncVehicles.Click += new System.EventHandler(this.btnSyncVehicles_Click);
+            // 
             // txtVehicleImei
             // 
             this.txtVehicleImei.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtVehicleImei.Location = new System.Drawing.Point(83, 86);
+            this.txtVehicleImei.Location = new System.Drawing.Point(74, 86);
             this.txtVehicleImei.Multiline = true;
             this.txtVehicleImei.Name = "txtVehicleImei";
-            this.txtVehicleImei.Size = new System.Drawing.Size(410, 44);
+            this.txtVehicleImei.Size = new System.Drawing.Size(323, 44);
             this.txtVehicleImei.TabIndex = 8;
             // 
             // label2
@@ -352,6 +369,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.btnSyncHistory);
             this.groupBox4.Controls.Add(this.dateHistoryStartSyncDate);
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.chkHistoryInactive);
@@ -364,9 +382,20 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Historial";
             // 
+            // btnSyncHistory
+            // 
+            this.btnSyncHistory.Image = global::GeoFleetConfig.Properties.Resources.sync_24;
+            this.btnSyncHistory.Location = new System.Drawing.Point(444, 91);
+            this.btnSyncHistory.Name = "btnSyncHistory";
+            this.btnSyncHistory.Size = new System.Drawing.Size(30, 30);
+            this.btnSyncHistory.TabIndex = 10;
+            this.btnSyncHistory.TabStop = false;
+            this.btnSyncHistory.UseVisualStyleBackColor = true;
+            this.btnSyncHistory.Click += new System.EventHandler(this.btnSyncHistory_Click);
+            // 
             // dateHistoryStartSyncDate
             // 
-            this.dateHistoryStartSyncDate.Location = new System.Drawing.Point(111, 101);
+            this.dateHistoryStartSyncDate.Location = new System.Drawing.Point(92, 96);
             this.dateHistoryStartSyncDate.Name = "dateHistoryStartSyncDate";
             this.dateHistoryStartSyncDate.Size = new System.Drawing.Size(286, 21);
             this.dateHistoryStartSyncDate.TabIndex = 13;
@@ -374,7 +403,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(25, 104);
+            this.label7.Location = new System.Drawing.Point(9, 101);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(79, 15);
             this.label7.TabIndex = 5;
@@ -570,6 +599,17 @@
             this.panel1.Size = new System.Drawing.Size(553, 38);
             this.panel1.TabIndex = 4;
             // 
+            // btnClose
+            // 
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.Location = new System.Drawing.Point(471, 6);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(75, 27);
+            this.btnClose.TabIndex = 15;
+            this.btnClose.Text = "&Cerrar";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
             // btnApply
             // 
             this.btnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -589,16 +629,23 @@
             this.lblServiceStatus.Size = new System.Drawing.Size(0, 15);
             this.lblServiceStatus.TabIndex = 0;
             // 
-            // btnClose
+            // timerServiceStatus
             // 
-            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClose.Location = new System.Drawing.Point(471, 6);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(75, 27);
-            this.btnClose.TabIndex = 15;
-            this.btnClose.Text = "&Cerrar";
-            this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            this.timerServiceStatus.Interval = 1500;
+            this.timerServiceStatus.Tick += new System.EventHandler(this.timerServiceStatus_Tick);
+            // 
+            // linkLogMan
+            // 
+            this.linkLogMan.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLogMan.AutoSize = true;
+            this.linkLogMan.Location = new System.Drawing.Point(138, 80);
+            this.linkLogMan.Name = "linkLogMan";
+            this.linkLogMan.Size = new System.Drawing.Size(133, 15);
+            this.linkLogMan.TabIndex = 5;
+            this.linkLogMan.TabStop = true;
+            this.linkLogMan.Text = "Sincronizacion manual";
+            this.linkLogMan.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLogMan_LinkClicked);
             // 
             // frmMain
             // 
@@ -665,7 +712,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.DateTimePicker dateHistoryStartSyncDate;
-        private System.Windows.Forms.LinkLabel linkLog;
+        private System.Windows.Forms.LinkLabel linkLogSrv;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
@@ -673,6 +720,10 @@
         private System.Windows.Forms.Button btnApply;
         private System.Windows.Forms.Label lblServiceStatus;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Button btnSyncVehicles;
+        private System.Windows.Forms.Button btnSyncHistory;
+        private System.Windows.Forms.Timer timerServiceStatus;
+        private System.Windows.Forms.LinkLabel linkLogMan;
 
     }
 }

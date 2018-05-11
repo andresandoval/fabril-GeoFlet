@@ -1,3 +1,3 @@
 # Geoflet
 
-Version funcional v1.0.0  (12-04-2017)
+Version funcional v1.0.1  (21-04-2017)

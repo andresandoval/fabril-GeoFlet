@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace GeoFleetService {
+namespace GeoFleetBL {
     
     
     /// <summary>
@@ -20,9 +20,9 @@ namespace GeoFleetService {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("ApiDataset")]
+    [global::System.Xml.Serialization.XmlRootAttribute("GeoDataSet")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class ApiDataset : global::System.Data.DataSet {
+    public partial class GeoDataSet : global::System.Data.DataSet {
         
         private devicesDataTable tabledevices;
         
@@ -34,7 +34,7 @@ namespace GeoFleetService {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public ApiDataset() {
+        public GeoDataSet() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -45,7 +45,7 @@ namespace GeoFleetService {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        protected ApiDataset(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected GeoDataSet(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -144,7 +144,7 @@ namespace GeoFleetService {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            ApiDataset cln = ((ApiDataset)(base.Clone()));
+            GeoDataSet cln = ((GeoDataSet)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -226,9 +226,9 @@ namespace GeoFleetService {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "ApiDataset";
+            this.DataSetName = "GeoDataSet";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/ApiDataset.xsd";
+            this.Namespace = "http://tempuri.org/GeoDataSet.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
             this.tabledevices = new devicesDataTable();
@@ -264,7 +264,7 @@ namespace GeoFleetService {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            ApiDataset ds = new ApiDataset();
+            GeoDataSet ds = new GeoDataSet();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -879,7 +879,7 @@ namespace GeoFleetService {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                ApiDataset ds = new ApiDataset();
+                GeoDataSet ds = new GeoDataSet();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -1409,7 +1409,7 @@ namespace GeoFleetService {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                ApiDataset ds = new ApiDataset();
+                GeoDataSet ds = new GeoDataSet();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -2648,7 +2648,7 @@ namespace GeoFleetService {
         }
     }
 }
-namespace GeoFleetService.ApiDatasetTableAdapters {
+namespace GeoFleetBL.GeoDataSetTableAdapters {
     
     
     /// <summary>
@@ -3027,7 +3027,7 @@ SELECT imei, alias, placa, ramv_cpn, chasis, motor, tipo_combustible, anio, marc
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::GeoFleetService.Properties.Settings.Default.geoFleetConnectionString;
+            this._connection.ConnectionString = global::GeoFleetBL.Properties.Settings.Default.GeoFleet_PRBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3049,7 +3049,7 @@ SELECT imei, alias, placa, ramv_cpn, chasis, motor, tipo_combustible, anio, marc
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(ApiDataset.devicesDataTable dataTable) {
+        public virtual int Fill(GeoDataSet.devicesDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -3062,9 +3062,9 @@ SELECT imei, alias, placa, ramv_cpn, chasis, motor, tipo_combustible, anio, marc
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual ApiDataset.devicesDataTable GetData() {
+        public virtual GeoDataSet.devicesDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            ApiDataset.devicesDataTable dataTable = new ApiDataset.devicesDataTable();
+            GeoDataSet.devicesDataTable dataTable = new GeoDataSet.devicesDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -3073,7 +3073,7 @@ SELECT imei, alias, placa, ramv_cpn, chasis, motor, tipo_combustible, anio, marc
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual ApiDataset.devicesDataTable GetDeviceById(string imei) {
+        public virtual GeoDataSet.devicesDataTable GetDeviceById(string imei) {
             this.Adapter.SelectCommand = this.CommandCollection[1];
             if ((imei == null)) {
                 throw new global::System.ArgumentNullException("imei");
@@ -3081,7 +3081,7 @@ SELECT imei, alias, placa, ramv_cpn, chasis, motor, tipo_combustible, anio, marc
             else {
                 this.Adapter.SelectCommand.Parameters[0].Value = ((string)(imei));
             }
-            ApiDataset.devicesDataTable dataTable = new ApiDataset.devicesDataTable();
+            GeoDataSet.devicesDataTable dataTable = new GeoDataSet.devicesDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -3089,14 +3089,14 @@ SELECT imei, alias, placa, ramv_cpn, chasis, motor, tipo_combustible, anio, marc
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(ApiDataset.devicesDataTable dataTable) {
+        public virtual int Update(GeoDataSet.devicesDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(ApiDataset dataSet) {
+        public virtual int Update(GeoDataSet dataSet) {
             return this.Adapter.Update(dataSet, "devices");
         }
         
@@ -4197,7 +4197,7 @@ SELECT dailyHistoryId, imei, date, time, uniqueId, latitude, longitude, address,
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::GeoFleetService.Properties.Settings.Default.geoFleetConnectionString;
+            this._connection.ConnectionString = global::GeoFleetBL.Properties.Settings.Default.GeoFleet_PRBConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4228,26 +4228,7 @@ SELECT dailyHistoryId, imei, date, time, uniqueId, latitude, longitude, address,
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = @"SELECT [dailyHistoryId]
-      ,[imei]
-      ,[date]
-      ,[time]
-      ,[uniqueId]
-      ,[latitude]
-      ,[longitude]
-      ,[address]
-      ,[speed]
-      ,[mileage]
-      ,[temperature_1]
-      ,[temperature_2]
-      ,[temperature_3]
-      ,[temperature_4]
-      ,[internal_battery_level]
-      ,[is_exception]
-      ,[alert_message]
-      ,[zone]
-  FROM [dbo].[dailyHistory]
-WHERE [uniqueId]=@uniqueId";
+            this._commandCollection[1].CommandText = @"SELECT address, alert_message, dailyHistoryId, date, imei, internal_battery_level, is_exception, latitude, longitude, mileage, speed, temperature_1, temperature_2, temperature_3, temperature_4, time, uniqueId, zone FROM dailyHistory WHERE (uniqueId = @uniqueId)";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@uniqueId", global::System.Data.SqlDbType.Char, 29, global::System.Data.ParameterDirection.Input, 0, 0, "uniqueId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
@@ -4261,7 +4242,7 @@ WHERE [uniqueId]=@uniqueId";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(ApiDataset.dailyHistoryDataTable dataTable) {
+        public virtual int Fill(GeoDataSet.dailyHistoryDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -4274,9 +4255,9 @@ WHERE [uniqueId]=@uniqueId";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual ApiDataset.dailyHistoryDataTable GetData() {
+        public virtual GeoDataSet.dailyHistoryDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            ApiDataset.dailyHistoryDataTable dataTable = new ApiDataset.dailyHistoryDataTable();
+            GeoDataSet.dailyHistoryDataTable dataTable = new GeoDataSet.dailyHistoryDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -4285,7 +4266,7 @@ WHERE [uniqueId]=@uniqueId";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual ApiDataset.dailyHistoryDataTable GetHistoryById(string uniqueId) {
+        public virtual GeoDataSet.dailyHistoryDataTable GetHistoryById(string uniqueId) {
             this.Adapter.SelectCommand = this.CommandCollection[1];
             if ((uniqueId == null)) {
                 throw new global::System.ArgumentNullException("uniqueId");
@@ -4293,7 +4274,7 @@ WHERE [uniqueId]=@uniqueId";
             else {
                 this.Adapter.SelectCommand.Parameters[0].Value = ((string)(uniqueId));
             }
-            ApiDataset.dailyHistoryDataTable dataTable = new ApiDataset.dailyHistoryDataTable();
+            GeoDataSet.dailyHistoryDataTable dataTable = new GeoDataSet.dailyHistoryDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -4301,14 +4282,14 @@ WHERE [uniqueId]=@uniqueId";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(ApiDataset.dailyHistoryDataTable dataTable) {
+        public virtual int Update(GeoDataSet.dailyHistoryDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(ApiDataset dataSet) {
+        public virtual int Update(GeoDataSet dataSet) {
             return this.Adapter.Update(dataSet, "dailyHistory");
         }
         
@@ -4632,7 +4613,7 @@ WHERE [uniqueId]=@uniqueId";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual global::System.Nullable<global::System.DateTime> GetMaxSyncDateByImei(string imei) {
+        public virtual object GetMaxSyncDateByImei(string imei) {
             global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[2];
             if ((imei == null)) {
                 throw new global::System.ArgumentNullException("imei");
@@ -4656,10 +4637,10 @@ WHERE [uniqueId]=@uniqueId";
             }
             if (((returnValue == null) 
                         || (returnValue.GetType() == typeof(global::System.DBNull)))) {
-                return new global::System.Nullable<global::System.DateTime>();
+                return null;
             }
             else {
-                return new global::System.Nullable<global::System.DateTime>(((global::System.DateTime)(returnValue)));
+                return ((object)(returnValue));
             }
         }
     }
@@ -4778,7 +4759,7 @@ WHERE [uniqueId]=@uniqueId";
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private int UpdateUpdatedRows(ApiDataset dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateUpdatedRows(GeoDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             if ((this._devicesTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.devices.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
@@ -4806,7 +4787,7 @@ WHERE [uniqueId]=@uniqueId";
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private int UpdateInsertedRows(ApiDataset dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateInsertedRows(GeoDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             if ((this._devicesTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.devices.Select(null, null, global::System.Data.DataViewRowState.Added);
@@ -4832,7 +4813,7 @@ WHERE [uniqueId]=@uniqueId";
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private int UpdateDeletedRows(ApiDataset dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
+        private int UpdateDeletedRows(GeoDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
             if ((this._dailyHistoryTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.dailyHistory.Select(null, null, global::System.Data.DataViewRowState.Deleted);
@@ -4882,7 +4863,7 @@ WHERE [uniqueId]=@uniqueId";
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public virtual int UpdateAll(ApiDataset dataSet) {
+        public virtual int UpdateAll(GeoDataSet dataSet) {
             if ((dataSet == null)) {
                 throw new global::System.ArgumentNullException("dataSet");
             }

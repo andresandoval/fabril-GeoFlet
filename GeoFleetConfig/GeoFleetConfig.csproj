@@ -67,12 +67,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,6 +125,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="1492034033_52_Cloud_Sync.ico" />
+    <None Include="Resources\sync-24.png" />
+    <None Include="Resources\sync.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GeoFleetBL\GeoFleetBL.csproj">
+      <Project>{cd8c334c-4a05-40c5-8018-d0ef2af9e716}</Project>
+      <Name>GeoFleetBL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

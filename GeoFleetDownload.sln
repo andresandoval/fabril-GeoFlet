@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoFleetService", "GeoFleet
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoFleetConfig", "GeoFleetConfig\GeoFleetConfig.csproj", "{D6ED97E2-ADF9-4BBB-82D6-68A9741ED88A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoFleetBL", "GeoFleetBL\GeoFleetBL.csproj", "{CD8C334C-4A05-40C5-8018-D0EF2AF9E716}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{D6ED97E2-ADF9-4BBB-82D6-68A9741ED88A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6ED97E2-ADF9-4BBB-82D6-68A9741ED88A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6ED97E2-ADF9-4BBB-82D6-68A9741ED88A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD8C334C-4A05-40C5-8018-D0EF2AF9E716}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD8C334C-4A05-40C5-8018-D0EF2AF9E716}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD8C334C-4A05-40C5-8018-D0EF2AF9E716}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD8C334C-4A05-40C5-8018-D0EF2AF9E716}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

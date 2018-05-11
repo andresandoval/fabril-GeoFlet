@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GeoFleetService {
+namespace GeoFleetBL {
     class LogHelper {
 
         private String logName;
@@ -15,12 +15,8 @@ namespace GeoFleetService {
             return String.Format("{0} {1}", DateTime.Now.ToShortDateString(), DateTime.Now.ToLongTimeString());
         }
 
-        public LogHelper(string ln = null) {
-            if (String.IsNullOrWhiteSpace(ln) || String.IsNullOrEmpty(ln)) {
-                this.logName = String.Format("{0}\\{1}.exe.log", Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), System.Configuration.ConfigurationManager.AppSettings["serviceName"].ToString());
-            } else {
-                this.logName = ln;
-            }
+        public LogHelper(String fileName) {
+            this.logName = String.Format("{0}\\{1}.exe.log", Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),fileName);
         }
 
 
