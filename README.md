@@ -1,3 +1,3 @@
-Geoflet Beta1 - 27-03-2017
+# Geoflet
 
-Prueba de conexion a servicio de rastreo
+Version funcional v1.0.0  (12-04-2017)

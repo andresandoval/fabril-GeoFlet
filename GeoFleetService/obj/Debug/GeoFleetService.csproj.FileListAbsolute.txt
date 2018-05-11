@@ -1,0 +1,13 @@
+C:\Users\asandoval\Desktop\GeoFleet\Service\GeoFleetDownload\GeoFleetDownload\bin\Debug\GeoFleetService.exe.config
+C:\Users\asandoval\Desktop\GeoFleet\Service\GeoFleetDownload\GeoFleetService\bin\Debug\GeoFleetDownloadService.exe.config
+C:\Users\asandoval\Desktop\GeoFleet\Service\GeoFleetDownload\GeoFleetService\bin\Debug\GeoFleetDownloadService.exe
+C:\Users\asandoval\Desktop\GeoFleet\Service\GeoFleetDownload\GeoFleetService\bin\Debug\GeoFleetDownloadService.pdb
+C:\Users\asandoval\Desktop\GeoFleet\Service\GeoFleetDownload\GeoFleetService\bin\Debug\Newtonsoft.Json.dll
+C:\Users\asandoval\Desktop\GeoFleet\Service\GeoFleetDownload\GeoFleetService\bin\Debug\RestSharp.dll
+C:\Users\asandoval\Desktop\GeoFleet\Service\GeoFleetDownload\GeoFleetService\bin\Debug\Newtonsoft.Json.xml
+C:\Users\asandoval\Desktop\GeoFleet\Service\GeoFleetDownload\GeoFleetService\bin\Debug\RestSharp.xml
+C:\Users\asandoval\Desktop\GeoFleet\Service\GeoFleetDownload\GeoFleetService\obj\Debug\GeoFleetService.ProjectInstaller.resources
+C:\Users\asandoval\Desktop\GeoFleet\Service\GeoFleetDownload\GeoFleetService\obj\Debug\GeoFleetService.MainService.resources
+C:\Users\asandoval\Desktop\GeoFleet\Service\GeoFleetDownload\GeoFleetService\obj\Debug\GeoFleetService.csproj.GenerateResource.Cache
+C:\Users\asandoval\Desktop\GeoFleet\Service\GeoFleetDownload\GeoFleetService\obj\Debug\GeoFleetDownloadService.exe
+C:\Users\asandoval\Desktop\GeoFleet\Service\GeoFleetDownload\GeoFleetService\obj\Debug\GeoFleetDownloadService.pdb
