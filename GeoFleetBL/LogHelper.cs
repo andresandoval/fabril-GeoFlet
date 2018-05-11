@@ -37,6 +37,9 @@ namespace GeoFleetBL {
 
         public void write(String msg, bool title = false, bool end = false) {
             StreamWriter lw = null;
+
+            //var outStream = new FileStream(this.logName, FileMode.Open, FileAccess.Write, FileShare.ReadWrite);
+            
             try {
                 if (this.checkFileExists()) {
                     lw = new StreamWriter(this.logName, true, Encoding.UTF8);
@@ -48,7 +51,9 @@ namespace GeoFleetBL {
                         lw.WriteLine(String.Format("{0}: {1}", this.getNow(), msg));
                     }
                 }
-            } finally {
+            } catch (IOException ex) {
+                //nothing
+            }finally {
                 if (lw != null) {
                     lw.Close();
                 }

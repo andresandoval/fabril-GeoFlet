@@ -391,16 +391,16 @@ namespace GeoFleetConfig {
                     return;
                 }
                 Cursor.Current = Cursors.WaitCursor;
-                try {
+                //try {
                     __todo.SyncDailyHistory();
                     MessageBox.Show("Sincronizacion completa", ":)");
-                } catch (Exception ex) {
-                    MessageBox.Show(ex.ToString(), "Error: sincronizando historial");
-                } finally {
-                    __todo.end();
-                    __todo = null;
+                //} catch (Exception ex) {
+                  //  MessageBox.Show(ex.ToString(), "Error: sincronizando historial");
+                //} finally {
+                   // __todo.end();
+                   // __todo = null;
                     Cursor.Current = Cursors.Default;
-                }
+               // }
             }
         }
 

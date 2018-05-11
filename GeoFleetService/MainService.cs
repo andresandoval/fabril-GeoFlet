@@ -31,7 +31,7 @@ namespace GeoFleetService {
             this.todo.SyncDevices();
         }
         private void OnDailyHistoryTimer(object source, ElapsedEventArgs e) {
-            this.todo.SyncDevices();
+            this.todo.SyncDailyHistory();
         }
 
 
