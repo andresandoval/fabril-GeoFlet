@@ -12,18 +12,36 @@ using System.IO;
 using System.Configuration;
 using GeoFleetConfig.Properties;
 using GeoFleetBL;
+using System.Diagnostics;
 
 namespace GeoFleetConfig {
+
+    public enum SERVICE_OPERATIONS {
+        INSTALL,
+        UNINSTALL,
+        RESTART,
+        START,
+        STOP
+    }
     public partial class frmMain : Form {
 
         private Configuration serviceConfig;
         private ServiceController mainService;
+        private String servicePath;
 
         public frmMain() {
             InitializeComponent();
         }
 
+        private bool doesServiceExist() {
+            ServiceController ctl = ServiceController.GetServices().FirstOrDefault(s => s.ServiceName == this.serviceConfig.AppSettings.Settings["serviceName"].Value);
+            return (ctl != null);
+        }
+
         private String getServiceStatus() {
+            if (!this.doesServiceExist()) {
+                return "No Instalado";
+            }
             switch (this.mainService.Status) {
                 case ServiceControllerStatus.Running:
                     return "Corriendo";
@@ -73,6 +91,9 @@ namespace GeoFleetConfig {
                 string serviceConfigFile = System.Configuration.ConfigurationManager.AppSettings["serviceConfigurationFile"];
 
                 if (File.Exists(serviceConfigFile)) {
+
+                    this.servicePath = Path.GetDirectoryName(serviceConfigFile);
+
                     ExeConfigurationFileMap serviceExeConfig = new ExeConfigurationFileMap();
                     serviceExeConfig.ExeConfigFilename = serviceConfigFile;
                     this.serviceConfig = ConfigurationManager.OpenMappedExeConfiguration(serviceExeConfig, ConfigurationUserLevel.None);
@@ -86,7 +107,7 @@ namespace GeoFleetConfig {
                         __logFileName = Path.Combine(Path.GetDirectoryName(serviceConfigFile), this.serviceConfig.AppSettings.Settings["serviceName"].Value + ".exe.log");
                     }
                     this.linkLogSrv.Tag = __logFileName;
-                    
+
                     int __maxDays = int.Parse(System.Configuration.ConfigurationManager.AppSettings["maxExecutionDays"]);
 
                     Object[] __days = new Object[__maxDays + 1];
@@ -157,6 +178,7 @@ namespace GeoFleetConfig {
 
                     this.Text += " : " + this.serviceConfig.AppSettings.Settings["serviceDisplayName"].Value;
                     this.trayNotifyIcon.BalloonTipTitle = this.Text;
+                    this.trayNotifyIcon.BalloonTipText = "Aun se esta ejecutando la aplicacion de " + this.Text;
                     this.BringToFront();
                     this.Activate();
                     this.timerServiceStatus.Enabled = true;
@@ -204,11 +226,23 @@ namespace GeoFleetConfig {
 
                     this.serviceConfig.Save();
                     this.mainService.Refresh();
-                    if (this.mainService.CanStop) {
-                        this.mainService.Stop();
+
+                    if (this.doesServiceExist()) {
+
+                        if (this.mainService.Status == ServiceControllerStatus.Running || this.mainService.Status == ServiceControllerStatus.Paused || this.mainService.Status == ServiceControllerStatus.StartPending) {
+                            this.mainService.Stop();
+                            this.mainService.WaitForStatus(ServiceControllerStatus.Stopped);
+                            this.mainService.Start();
+                            this.mainService.WaitForStatus(ServiceControllerStatus.Running);
+                        } else {
+                            this.mainService.Start();
+                            this.mainService.WaitForStatus(ServiceControllerStatus.Running);
+                        }
+
+                        MessageBox.Show("Proceso completado exitosamente, puede revisar el archivo LOG para mas detalles..");
+                    } else {
+                        MessageBox.Show("Se cambios fueron guardados, pero el servicio no esta instalado en este equipo, pulse Servicio->Instalar para instalar el servicio", "Atención!");
                     }
-                    this.mainService.Start();
-                    MessageBox.Show("Proceso completado exitosamente, puede revisar el archivo LOG para mas detalles..");
                 }
             } catch (Exception ex) {
                 MessageBox.Show(ex.ToString(), "Error: cargando configuracion");
@@ -382,6 +416,99 @@ namespace GeoFleetConfig {
             } else {
                 MessageBox.Show("No existe un archivo de log para mostrar, este se genera luego de realizar una sincronizacion manual", "Abrir archivo de log");
             }
+        }
+
+        private void serviceOperations(SERVICE_OPERATIONS type) {
+            Cursor.Current = Cursors.WaitCursor;
+            try {
+                if (doesServiceExist()) {
+                    if (type == SERVICE_OPERATIONS.INSTALL) {
+                        MessageBox.Show("El servicio ya se encuentra instalado en el equipo!!", "Atención!");
+                        return;
+                    }
+                    if (this.mainService.Status == ServiceControllerStatus.Running || this.mainService.Status == ServiceControllerStatus.Paused || this.mainService.Status == ServiceControllerStatus.StartPending) {
+                        if (type == SERVICE_OPERATIONS.STOP) {
+                            this.mainService.Stop();
+                            this.mainService.WaitForStatus(ServiceControllerStatus.Stopped);
+                            MessageBox.Show("Servicio detenido correctamente!!", "Informacion!");
+                            return;
+                        }
+                        if (type == SERVICE_OPERATIONS.RESTART) {
+                            this.mainService.Stop();
+                            this.mainService.WaitForStatus(ServiceControllerStatus.Stopped);
+                            this.mainService.Start();
+                            this.mainService.WaitForStatus(ServiceControllerStatus.Running);
+                            MessageBox.Show("Servicio reiniciado correctamente!!", "Informacion!");
+                            return;
+                        }
+                        if (type == SERVICE_OPERATIONS.START) {
+                            MessageBox.Show("El servicio ya se encuentra en ejecucion!!", "Atencion!");
+                            return;
+                        }
+                    } else {
+                        if (type == SERVICE_OPERATIONS.STOP) {
+                            MessageBox.Show("El servicio no se encuentra en ejecucion!!", "Atencion!");
+                            return;
+                        }
+                        if (type == SERVICE_OPERATIONS.RESTART || type == SERVICE_OPERATIONS.START) {
+                            this.mainService.Start();
+                            this.mainService.WaitForStatus(ServiceControllerStatus.Running);
+                            MessageBox.Show("Servicio iniciado correctamente!!", "Informacion!");
+                            return;
+                        }
+                    }
+                } else {
+                    if (type == SERVICE_OPERATIONS.UNINSTALL) {
+                        MessageBox.Show("El servicio no se encuentra instalado en el equipo, pulse Servicio->Instalar para instalar el servicio", "Atención!");
+                        return;
+                    }
+                }
+
+                if (MessageBox.Show("¿Esta seguro que desea " + (type == SERVICE_OPERATIONS.INSTALL ? "instalar" : "desinstalar") + " el servicio en el equipo?", "Confirmar instalacion", MessageBoxButtons.YesNo) != DialogResult.Yes) {
+                    return;
+                }
+                String __serviceFilePath = Path.Combine(this.servicePath, this.serviceConfig.AppSettings.Settings["serviceName"].Value + ".exe");
+                if (!File.Exists(__serviceFilePath)) {
+                    OpenFileDialog ofd = new OpenFileDialog();
+                    ofd.Filter = "Aplicaciones|*.exe;";
+                    ofd.Title = "Instalador de servicio servicio";
+                    ofd.CheckFileExists = true;
+                    if (ofd.ShowDialog().Equals(DialogResult.OK)) {
+                        __serviceFilePath = ofd.FileName;
+                    } else {
+                        return;
+                    }
+                }
+                ProcessStartInfo startInfo = new ProcessStartInfo();
+                startInfo.FileName = __serviceFilePath;
+                startInfo.Arguments = (type == SERVICE_OPERATIONS.INSTALL ? "-install" : "-uninstall");
+                Process.Start(startInfo);
+                MessageBox.Show("Servicio " + (type == SERVICE_OPERATIONS.INSTALL ? "instalado" : "desinstalado") + " correctamente!!", "Informacion!");
+            } catch (Exception ex) {
+                MessageBox.Show(ex.ToString(), "Error: on operaciones sobre servicio");
+            } finally {
+                Cursor.Current = Cursors.Default;
+            }
+        }
+
+        private void instalarToolStripMenuItem_Click(object sender, EventArgs e) {
+            this.serviceOperations(SERVICE_OPERATIONS.INSTALL);
+        }
+
+        private void desinstalarToolStripMenuItem_Click(object sender, EventArgs e) {
+            this.serviceOperations(SERVICE_OPERATIONS.UNINSTALL);
+        }
+
+        private void reiniciarToolStripMenuItem_Click(object sender, EventArgs e) {
+            this.serviceOperations(SERVICE_OPERATIONS.RESTART);
+        }
+
+        private void iniciarToolStripMenuItem_Click(object sender, EventArgs e) {
+            this.serviceOperations(SERVICE_OPERATIONS.START);
+        }
+
+        private void detenerToolStripMenuItem_Click(object sender, EventArgs e) {
+            this.serviceOperations(SERVICE_OPERATIONS.STOP);
         }
 
     }

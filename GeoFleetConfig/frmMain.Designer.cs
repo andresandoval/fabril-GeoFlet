@@ -27,6 +27,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.trayNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.linkLogMan = new System.Windows.Forms.LinkLabel();
             this.linkLogSrv = new System.Windows.Forms.LinkLabel();
             this.label11 = new System.Windows.Forms.Label();
             this.txtEnterpriceName = new System.Windows.Forms.TextBox();
@@ -64,18 +65,29 @@
             this.btnApply = new System.Windows.Forms.Button();
             this.lblServiceStatus = new System.Windows.Forms.Label();
             this.timerServiceStatus = new System.Windows.Forms.Timer(this.components);
-            this.linkLogMan = new System.Windows.Forms.LinkLabel();
+            this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
+            this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.instalarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.desinstalarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.reiniciarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.iniciarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.detenerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.mainMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // trayNotifyIcon
             // 
             this.trayNotifyIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.trayNotifyIcon.BalloonTipText = "Info";
+            this.trayNotifyIcon.BalloonTipTitle = "Info";
             this.trayNotifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("trayNotifyIcon.Icon")));
             this.trayNotifyIcon.Text = "##";
             this.trayNotifyIcon.DoubleClick += new System.EventHandler(this.trayNotifyIcon_DoubleClick);
@@ -91,12 +103,25 @@
             this.groupBox1.Controls.Add(this.txtToken);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.groupBox1.Location = new System.Drawing.Point(16, 12);
+            this.groupBox1.Location = new System.Drawing.Point(16, 30);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(519, 104);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "General";
+            // 
+            // linkLogMan
+            // 
+            this.linkLogMan.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLogMan.AutoSize = true;
+            this.linkLogMan.Location = new System.Drawing.Point(138, 80);
+            this.linkLogMan.Name = "linkLogMan";
+            this.linkLogMan.Size = new System.Drawing.Size(133, 15);
+            this.linkLogMan.TabIndex = 5;
+            this.linkLogMan.TabStop = true;
+            this.linkLogMan.Text = "Sincronizacion manual";
+            this.linkLogMan.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLogMan_LinkClicked);
             // 
             // linkLogSrv
             // 
@@ -164,7 +189,7 @@
             this.groupBox2.Controls.Add(this.chkVehicleInactive);
             this.groupBox2.Controls.Add(this.groupBox3);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.groupBox2.Location = new System.Drawing.Point(16, 124);
+            this.groupBox2.Location = new System.Drawing.Point(16, 142);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(519, 143);
             this.groupBox2.TabIndex = 2;
@@ -375,7 +400,7 @@
             this.groupBox4.Controls.Add(this.chkHistoryInactive);
             this.groupBox4.Controls.Add(this.groupBox5);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.groupBox4.Location = new System.Drawing.Point(16, 275);
+            this.groupBox4.Location = new System.Drawing.Point(16, 288);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(519, 143);
             this.groupBox4.TabIndex = 3;
@@ -594,7 +619,7 @@
             this.panel1.Controls.Add(this.btnApply);
             this.panel1.Controls.Add(this.lblServiceStatus);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 429);
+            this.panel1.Location = new System.Drawing.Point(0, 452);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(553, 38);
             this.panel1.TabIndex = 4;
@@ -634,31 +659,89 @@
             this.timerServiceStatus.Interval = 1500;
             this.timerServiceStatus.Tick += new System.EventHandler(this.timerServiceStatus_Tick);
             // 
-            // linkLogMan
+            // mainMenuStrip
             // 
-            this.linkLogMan.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkLogMan.AutoSize = true;
-            this.linkLogMan.Location = new System.Drawing.Point(138, 80);
-            this.linkLogMan.Name = "linkLogMan";
-            this.linkLogMan.Size = new System.Drawing.Size(133, 15);
-            this.linkLogMan.TabIndex = 5;
-            this.linkLogMan.TabStop = true;
-            this.linkLogMan.Text = "Sincronizacion manual";
-            this.linkLogMan.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLogMan_LinkClicked);
+            this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.archivoToolStripMenuItem});
+            this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.mainMenuStrip.Name = "mainMenuStrip";
+            this.mainMenuStrip.Size = new System.Drawing.Size(553, 24);
+            this.mainMenuStrip.TabIndex = 5;
+            this.mainMenuStrip.Text = "mainMenuStrip";
+            // 
+            // archivoToolStripMenuItem
+            // 
+            this.archivoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.instalarToolStripMenuItem,
+            this.desinstalarToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.iniciarToolStripMenuItem,
+            this.detenerToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.reiniciarToolStripMenuItem});
+            this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
+            this.archivoToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
+            this.archivoToolStripMenuItem.Text = "&Servicio";
+            // 
+            // instalarToolStripMenuItem
+            // 
+            this.instalarToolStripMenuItem.Name = "instalarToolStripMenuItem";
+            this.instalarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.instalarToolStripMenuItem.Text = "&Instalar";
+            this.instalarToolStripMenuItem.Click += new System.EventHandler(this.instalarToolStripMenuItem_Click);
+            // 
+            // desinstalarToolStripMenuItem
+            // 
+            this.desinstalarToolStripMenuItem.Name = "desinstalarToolStripMenuItem";
+            this.desinstalarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.desinstalarToolStripMenuItem.Text = "&Desinstalar";
+            this.desinstalarToolStripMenuItem.Click += new System.EventHandler(this.desinstalarToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            // 
+            // reiniciarToolStripMenuItem
+            // 
+            this.reiniciarToolStripMenuItem.Name = "reiniciarToolStripMenuItem";
+            this.reiniciarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.reiniciarToolStripMenuItem.Text = "&Reiniciar";
+            this.reiniciarToolStripMenuItem.Click += new System.EventHandler(this.reiniciarToolStripMenuItem_Click);
+            // 
+            // iniciarToolStripMenuItem
+            // 
+            this.iniciarToolStripMenuItem.Name = "iniciarToolStripMenuItem";
+            this.iniciarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.iniciarToolStripMenuItem.Text = "&Iniciar";
+            this.iniciarToolStripMenuItem.Click += new System.EventHandler(this.iniciarToolStripMenuItem_Click);
+            // 
+            // detenerToolStripMenuItem
+            // 
+            this.detenerToolStripMenuItem.Name = "detenerToolStripMenuItem";
+            this.detenerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.detenerToolStripMenuItem.Text = "&Detener";
+            this.detenerToolStripMenuItem.Click += new System.EventHandler(this.detenerToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(553, 467);
+            this.ClientSize = new System.Drawing.Size(553, 490);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.mainMenuStrip);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.mainMenuStrip;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "frmMain";
@@ -678,7 +761,10 @@
             this.groupBox5.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.mainMenuStrip.ResumeLayout(false);
+            this.mainMenuStrip.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -724,6 +810,15 @@
         private System.Windows.Forms.Button btnSyncHistory;
         private System.Windows.Forms.Timer timerServiceStatus;
         private System.Windows.Forms.LinkLabel linkLogMan;
+        private System.Windows.Forms.MenuStrip mainMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem archivoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem instalarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem desinstalarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem reiniciarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem iniciarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem detenerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
 
     }
 }

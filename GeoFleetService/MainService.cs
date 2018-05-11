@@ -10,13 +10,17 @@ using System.Threading.Tasks;
 using GeoFleetBL;
 using System.Timers;
 
+
+using System.Reflection;
+using System.IO;
+
 namespace GeoFleetService {
 
     public partial class MainService : ServiceBase {
 
         private System.Timers.Timer timerDevices;
         private System.Timers.Timer timerDailyHistory;
-        private Todo todo;
+        private Todo todo;              
 
         public MainService() {
             InitializeComponent();

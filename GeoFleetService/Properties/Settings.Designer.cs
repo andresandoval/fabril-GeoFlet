@@ -26,8 +26,8 @@ namespace GeoFleetService.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.100.115.14;Initial Catalog=GeoFleet_PRB;Persist Security Info=Tru" +
-            "e;User ID=sa;Password=Sqlrma14$")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.100.115.14;Initial Catalog=geoFleet;Persist Security Info=True;Us" +
+            "er ID=sa;Password=Sqlrma14$")]
         public string geoFleetConnectionString {
             get {
                 return ((string)(this["geoFleetConnectionString"]));
